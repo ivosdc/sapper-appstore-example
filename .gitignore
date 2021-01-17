@@ -1,0 +1,8 @@
+**/.project
+**/*.iml
+**/.DS_Store
+**/.idea
+.settings
+/src/node_modules/@sapper/
+/cypress/screenshots/
+/__sapper__/
