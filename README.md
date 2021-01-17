@@ -1,3 +1,51 @@
+Use the svelte localStorage:
+
+Create a store e.g. myStore.js
+
+    import { writable } from 'svelte/store';
+    
+    export let mystore = writable({
+        session: ""
+    });
+    
+    
+    export function setSession(session) {
+        mystore.set({
+            session: session
+        });
+        session = session; // refresh UI
+    }
+
+Subscribe to it in routes/_layout.svelte
+
+    <script>
+        import {mystore, setSession} from './myStore.js'
+    
+        let session = setSession("A_SESSION"); // here comes the session
+    
+    
+        const unsubscribeMyStore = mystore.subscribe(value => {
+            session = session;
+        });
+    </script>
+    
+    <ComponentWithStore bind:session={$mystore}/> // if the component exports session
+
+Use in ComponentWithStore:
+
+    <script>
+        export let session;
+    </script>
+    
+    <div>
+    {session.session}
+    </div>
+
+
+
+
+
+
 # sapper-template
 
 The default template for setting up a [Sapper](https://github.com/sveltejs/sapper) project. Can use either Rollup or webpack as bundler.
